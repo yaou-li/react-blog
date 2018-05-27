@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './common/common.css'
 import { Spinner } from './common'
+import avatar from './common/img/avatar.jpg'
+import { Top } from './view'
 // import Button from '@material-ui/core/Button';
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div className="flex-center full-width" >
+      <div className='App'>
+        <Top avatar={avatar}/>
+        <div className='flex-center full-width justify-center' >
             <Spinner height={30} width={30} duration={5}/>
         </div>
       </div>

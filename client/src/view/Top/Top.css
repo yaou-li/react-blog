@@ -1,0 +1,13 @@
+.top-wrap {
+    position: relative;
+    width: 100%;
+    border: 0;
+}
+.top-wrap > div#top {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 50px;
+    color: white;
+}
