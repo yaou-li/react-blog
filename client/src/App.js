@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Spinner } from './common'
+// import Button from '@material-ui/core/Button';
 
 class App extends Component {
   render() {
@@ -13,6 +15,9 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <div className="flex-center full-width" >
+            <Spinner height={30} width={30} duration={5}/>
+        </div>
       </div>
     );
   }
