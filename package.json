@@ -8,7 +8,5 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "react-router-dom": "^4.2.2"
-  }
+  "dependencies": {}
 }

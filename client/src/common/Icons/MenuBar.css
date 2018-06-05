@@ -1,0 +1,20 @@
+.menu-bar {
+    position: absolute;
+    height: 22px;
+    width: 25px;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+
+}
+.menu-bar:after {
+    position: absolute;
+    content: '';
+    top: calc(50% - 1px);
+    left: 0;
+    background-color: white;
+    height: 2px;
+    min-width: 25px;
+}
+.menu-bar:hover {
+    cursor: pointer;
+}
