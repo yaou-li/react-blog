@@ -6,9 +6,39 @@
 
 .top-wrap > div#top {
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
-    padding: 10px;
+    height: 100%;
+    padding: 20px;
     color: white;
+}
+.top-wrap .search {
+    position: relative;
+    margin-right: 40px;
+}
+.top-wrap .search input {
+    background-color: transparent;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #FFFFFF;
+    transition: width .5s, border .5s;
+}
+.top-wrap .search.hide input {
+    width: 0;
+    border: 0;
+}
+.top-wrap i.fa-search {
+    position: absolute;
+    left: 10px;
+    z-index: 100;
+    font-size: 18px;
+    color: #FFFFFF;
+    transition: font-size .5s;
+}
+.top-wrap i.fa-search:hover {
+    cursor: pointer;
+}
+.top-wrap .search.hide i.fa-search {
+    font-size: 28px;
 }
