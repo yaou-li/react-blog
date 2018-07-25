@@ -13,6 +13,8 @@
 .flex-center {
     display: flex;
     align-items: center;
+    width: auto;
+    height: auto;
 }
 
 .justify-center {

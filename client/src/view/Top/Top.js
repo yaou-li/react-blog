@@ -36,7 +36,7 @@ class Top extends Component {
         return (
             <div id='particles' className='top-wrap full-width full-height' style={style}>
                 <div className='padding-40 full-width flex-center justify-between'>
-                    <div className='flex-center justify-center'>
+                    <div className='clearfix flex-center justify-center' onClick={(e) => this.props.toggleNavbar(e)}>
                         <MenuBar />
                     </div>
                     <div className='flex-center justify-center'>
@@ -69,6 +69,7 @@ Top.defaultProps = {
     avatar: '',
     avatarWidth: '40',
     avatarHeight: '40',
+    toggleNavbar: null,
 };
 
 Top.propTypes = {
@@ -77,7 +78,8 @@ Top.propTypes = {
     avatar: PropTypes.string,
     avatarWidth: PropTypes.number,
     avatarHeight: PropTypes.number,
-    name: PropTypes.string
+    name: PropTypes.string,
+    toggleNavbar: PropTypes.func
 };
 
 export default Top;

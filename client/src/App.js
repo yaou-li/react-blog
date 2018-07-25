@@ -4,7 +4,7 @@ import './App.css';
 import './common/common.css'
 import { Spinner } from './common'
 import avatar from './assets/img/avatar.jpg'
-import { Top, Content } from './view'
+import { Top, Content, Navbar } from './view'
 // import Button from '@material-ui/core/Button';
 
 class App extends Component {
@@ -12,16 +12,24 @@ class App extends Component {
         super(props);
         this.state = {
             topHeight: '100%',
+            showNavbar: false,
         }
+    }
+
+    toggleNavbar() {
+        this.setState({
+            showNavbar: !this.state.showNavbar,
+        });
     }
 
     render() {
         return (
             <div className='App'>
-                <Top avatar={avatar} height={this.state.topHeight}/>
-                <div className='full-width flex-center justify-center'>
-                    <Content />
-                </div>
+                <Top avatar={avatar} height={this.state.topHeight} toggleNavbar={this.toggleNavbar.bind(this)}/>
+                <Navbar show={this.showNavbar} />
+                {/*<div className='full-width flex-center justify-center'>*/}
+                    {/*<Content />*/}
+                {/*</div>*/}
             </div>
         );
     }

@@ -9,7 +9,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 40px);
     padding: 20px;
     color: white;
 }
@@ -41,4 +41,18 @@
 }
 .top-wrap .search.hide i.fa-search {
     font-size: 28px;
+}
+.top-wrap canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: '';
+    clear: both;
+    height:0;
 }
