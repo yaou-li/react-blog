@@ -70,14 +70,18 @@ let particles = {
         "detect_on": "canvas",
         "events": {
             "onhover": {
-                "enable": true,
+                "enable": false,
                 "mode": "repulse"
             },
             "onclick": {
                 "enable": false,
                 "mode": "push"
             },
-            "resize": true
+            "onresize": {
+                "enable": true,
+                "density_auto": true,
+                // "density_area": 400
+            }
         },
         "modes": {
             "grab": {

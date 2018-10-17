@@ -6,7 +6,8 @@
 
 body, html, #root, .App {
     height: 100%;
-    font-family: Lato, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif, Arial;
+    font-family: Tahoma, Arial, Verdana, Microsoft Sans Serif, "Microsoft YaHei", 微软雅黑;
+    /* font-family: Lato, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif, Arial; */
 }
 
 .App {

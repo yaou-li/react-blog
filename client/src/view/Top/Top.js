@@ -9,18 +9,50 @@ class Top extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hide: 'hide'
+            hide: 'hide',
+            tH: '120px'
         };
     }
 
     componentDidMount() {
-        window.particlesJS('particles',particleConf);
+        if (this.atHome()) {
+            window.particlesJS('particles',particleConf);
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.height !== this.state.tH && this.props.height === this.state.tH) {
+            this.resetParticles();
+        } else if (prevProps.height === this.state.tH && this.props.height !== this.state.tH) {
+            setTimeout(() => {
+                window.particlesJS('particles',particleConf);
+            }, 500);
+            
+        }
     }
 
     showSearch() {
         this.setState({
             hide: '',
         });
+    }
+    
+    atHome() {
+        return this.props.location.pathname === '/';
+    }
+
+    resetParticles() {
+        console.log('trigger');
+        let el = document.getElementById('particles');
+        let childs = Array.prototype.slice.call(el.children);
+        for (let i in childs) {
+            let child = childs[i];
+            if (child.tagName.toLowerCase() == 'canvas') {
+                el.removeChild(child);
+                break;
+            }
+        }
+        // window.particlesJS('particles',particleConf);
     }
 
     render() {
@@ -34,9 +66,9 @@ class Top extends Component {
             borderRadius: '50%'
         };
         return (
-            <div id='particles' className='top-wrap full-width full-height' style={style}>
+            <div id='particles' className='top-wrap full-width full-height' style={style} onClick={(e) => this.props.toggleNavbar('hide', e)}>
                 <div className='padding-40 full-width flex-center justify-between'>
-                    <div className='clearfix flex-center justify-center' onClick={(e) => this.props.toggleNavbar(e)}>
+                    <div className='clearfix flex-center justify-center' onClick={(e) => this.props.toggleNavbar('show', e)}>
                         <MenuBar />
                     </div>
                     <div className='flex-center justify-center'>
@@ -44,18 +76,18 @@ class Top extends Component {
                             <i className='fa fa-search' onClick={(e) => this.showSearch()}/>
                             <input name='search' onChange={(e) => this.handleChange(e)}/>
                         </div>
-
                         <img src={this.props.avatar} style={avatarStyle}/>
                     </div>
                 </div>
-                <div id='top' className='flex-center justify-center'>
-
-                    <div className='margin-left-15'>
-                        <AutoWords words={'我是一只鸭，嘎嘎嘎嘎嘎嘎'} />
-                        <h2 id='title'>李亚欧</h2>
-                        <p id='subtitle'>一名努力成为全栈的前端开发</p>
+                { this.atHome() &&
+                    <div id='top' className='flex-center justify-center'>
+                        <div className='margin-left-15'>
+                            <AutoWords words={'我是一只鸭，嘎嘎嘎嘎嘎嘎'} />
+                            <h2 id='title'>李亚欧</h2>
+                            <p id='subtitle'>一名努力成为全栈的前端开发</p>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         )
     }
@@ -76,8 +108,8 @@ Top.propTypes = {
     bkg: PropTypes.string,
     height: PropTypes.string,
     avatar: PropTypes.string,
-    avatarWidth: PropTypes.number,
-    avatarHeight: PropTypes.number,
+    avatarWidth: PropTypes.string,
+    avatarHeight: PropTypes.string,
     name: PropTypes.string,
     toggleNavbar: PropTypes.func
 };

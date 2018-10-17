@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import './common/common.css'
@@ -14,22 +15,24 @@ class App extends Component {
             topHeight: '100%',
             showNavbar: false,
         }
+        this.toggleNavbar = this.toggleNavbar.bind(this);
     }
 
-    toggleNavbar() {
+    toggleNavbar(type, e) {
+        e.stopPropagation();
         this.setState({
-            showNavbar: !this.state.showNavbar,
+            showNavbar: type === 'show',
         });
     }
 
     render() {
         return (
             <div className='App'>
-                <Top avatar={avatar} height={this.state.topHeight} toggleNavbar={this.toggleNavbar.bind(this)}/>
-                <Navbar show={this.showNavbar} />
-                {/*<div className='full-width flex-center justify-center'>*/}
-                    {/*<Content />*/}
-                {/*</div>*/}
+                <Route path='/' render={(props) => <Top avatar={avatar} height={props.location.pathname === '/' ? this.state.topHeight : '120px'} toggleNavbar={this.toggleNavbar} {...props}/>} />
+                <Route path='/' render={(props) => <Navbar show={this.state.showNavbar} toggleNavbar={this.toggleNavbar} {...props}/>} />
+                <div className='full-width flex-center justify-center'>
+                    <Content />
+                </div>
             </div>
         );
     }

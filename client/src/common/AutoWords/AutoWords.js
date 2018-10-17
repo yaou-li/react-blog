@@ -19,7 +19,7 @@ class AutoWords extends Component {
                 this.setState({
                    status: 'waiting'
                 });
-                setTimeout(() => {
+                this.lastTimeout = setTimeout(() => {
                     this.setState({
                         status: 'finished'
                     });
@@ -32,6 +32,11 @@ class AutoWords extends Component {
             });
 
         },this.props.interval);
+    }
+
+    componentWillUnmount() {
+        this.interval && clearInterval(this.interval);
+        this.lastTimeout && clearTimeout(this.lastTimeout);
     }
 
     render() {
