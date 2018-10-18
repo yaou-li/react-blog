@@ -16,15 +16,6 @@ class Navbar extends Component {
         
     }
 
-    toRoute(url, e) {
-        const location = {
-            pathname: url,
-        };
-        this.props.history.push(location);
-        this.props.toggleNavbar('hide', e);
-
-    }
-
     onTouchEvent(type, e) {
         switch(type) {
             case 'touchstart':             
@@ -36,7 +27,13 @@ class Navbar extends Component {
                 e.currentTarget.className = 'nav-list-item';
                 break;
         }
+    }
 
+    onClick(path, e) {
+        this.props.toRoute({
+            path: path
+        }, e);
+        this.props.toggleNavbar('hide', e);
     }
 
     render() {
@@ -44,9 +41,9 @@ class Navbar extends Component {
         return (
             <div id="nav-bar" className={className}>
                 <div className='nav-list'>
-                    <div className='nav-list-item' onClick={(e) => this.toRoute('/demo', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>Demo</div>
-                    <div className='nav-list-item' onClick={(e) => this.toRoute('/blog', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>Blog</div>
-                    <div className='nav-list-item' onClick={(e) => this.toRoute('/about', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>About</div>
+                    <div className='nav-list-item' onClick={(e) => this.onClick('/demo', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>Demo</div>
+                    <div className='nav-list-item' onClick={(e) => this.onClick('/blog', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>Blog</div>
+                    <div className='nav-list-item' onClick={(e) => this.onClick('/about', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>About</div>
                 </div>
             </div>
         )

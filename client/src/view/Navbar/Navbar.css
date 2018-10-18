@@ -2,11 +2,19 @@
     position: absolute;
     height: 100%;
     width: 20%;
-    left: -40%;
+    left: -20%;
     top: 0;
     background-color: #F8F8F8;
     transition: left 0.2s ease-in-out;
     z-index: 1001;
+}
+
+@media screen and (max-width:640px) {
+    #nav-bar {
+        width: 100%;
+        left: -100%;
+        transition: left .4s ease-in-out;
+    }   
 }
 
 #nav-bar.show {

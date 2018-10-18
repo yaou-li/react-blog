@@ -10,7 +10,7 @@ class Top extends Component {
         super(props);
         this.state = {
             hide: 'hide',
-            tH: '120px'
+            tH: props.tH,
         };
     }
 
@@ -42,7 +42,6 @@ class Top extends Component {
     }
 
     resetParticles() {
-        console.log('trigger');
         let el = document.getElementById('particles');
         let childs = Array.prototype.slice.call(el.children);
         for (let i in childs) {
@@ -52,22 +51,24 @@ class Top extends Component {
                 break;
             }
         }
-        // window.particlesJS('particles',particleConf);
     }
 
     render() {
         const style = {
             height: this.props.height,
-            background: this.props.bkg
+            background: this.props.bkg,
         };
         const avatarStyle = {
             height: this.props.avatarHeight + 'px',
             width: this.props.avatarWidth + 'px',
             borderRadius: '50%'
         };
+        const topPadding = {
+            padding: this.atHome() ? '40px': '10px 40px',
+        }
         return (
             <div id='particles' className='top-wrap full-width full-height' style={style} onClick={(e) => this.props.toggleNavbar('hide', e)}>
-                <div className='padding-40 full-width flex-center justify-between'>
+                <div className='top full-width flex-center justify-between' style={topPadding}>
                     <div className='clearfix flex-center justify-center' onClick={(e) => this.props.toggleNavbar('show', e)}>
                         <MenuBar />
                     </div>
