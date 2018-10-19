@@ -41,6 +41,7 @@ class Navbar extends Component {
         return (
             <div id="nav-bar" className={className}>
                 <div className='nav-list'>
+                    <div className='nav-list-item' onClick={(e) => this.onClick('/', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>Home</div>
                     <div className='nav-list-item' onClick={(e) => this.onClick('/demo', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>Demo</div>
                     <div className='nav-list-item' onClick={(e) => this.onClick('/blog', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>Blog</div>
                     <div className='nav-list-item' onClick={(e) => this.onClick('/about', e)} onTouchStart={(e) => this.onTouchEvent('touchstart', e)} onTouchEnd={(e) => this.onTouchEvent('touchend', e)}>About</div>

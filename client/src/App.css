@@ -9,6 +9,7 @@ body, html, #root, .App {
     font-family: Tahoma, Arial, Verdana, Microsoft Sans Serif, "Microsoft YaHei", 微软雅黑;
     /* font-family: Lato, "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", 微软雅黑, STHeiti, "WenQuanYi Micro Hei", SimSun, sans-serif, Arial; */
     background-color: #FAFAFA;
+    color: #3C3C3C;
 }
 
 .App {
@@ -40,4 +41,3 @@ body, html, #root, .App {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-

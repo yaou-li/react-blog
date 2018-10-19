@@ -11,10 +11,10 @@ class Content extends Component {
             loader: () => import('../Demo/Demo'),
             loading: Spinner
         });
-        // const RealtimeLoadable = Loadable({
-        //     loader: () => import('../Realtime/Realtime'),
-        //     loading: Spinner
-        // });
+        const Blog = Loadable({
+            loader: () => import('../Blog/Blog'),
+            loading: Spinner
+        });
         // const NotFoundLoadable = Loadable({
         //     loader: () => import('../NotFound/NotFound'),
         //     loading: Spinner
@@ -24,6 +24,7 @@ class Content extends Component {
                 <div className='content'>
                     <Switch>
                         <Route path='/demo' render={(props) => <Demo toRoute={this.props.toRoute} {...props}/>}/>
+                        <Route path='/blog' render={(props) => <Blog toRoute={this.props.toRoute} {...props}/>}/>
                         {/* <Route path='/realtime' component={RealtimeLoadable}/>
                         <Route component={NotFoundLoadable}/> */}
                     </Switch>
