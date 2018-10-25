@@ -1,11 +1,17 @@
 #demo {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
+    position: absolute;
+    height: 100%;
     width: 100%;
+    background: linear-gradient(to bottom, #FFFFFF 0%, #DCDCDC 100%);
+    color: #696969;
 }
 
 #demo .title {
     width: 100%;
-    padding: 1rem 0;
+    padding: 1em 0;
+    font-size: 1.5em;
+}
+
+#demo .card-list {
+    position: relative;
 }

@@ -12,6 +12,7 @@ class BlogList extends Component {
     render() {
         return (
             <div id='blog-list'>
+                <div className='title'>Blog</div>
                 <section id='category-list'>
                     <p className='category-item'>JavaScript</p>
                     <p className='category-item'>CSS</p>

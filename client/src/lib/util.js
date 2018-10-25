@@ -8,6 +8,14 @@ function __debugMsg(msg) {
 }
 
 /**
+ * @param {string} msg 
+ * @private
+ */
+function __errorMsg(msg) {
+    console.error(msg);
+}
+
+/**
  * serialize json object into query string
  * @param json
  * @returns string
@@ -18,6 +26,23 @@ function json2query(json) {
         querys.push(k + '=' + encodeURIComponent(json[k]));
     }
     return querys.join('&');
+}
+
+/**
+ * 
+ * @param {string} str 
+ * @param {object} obj
+ */
+function format(str , obj) {
+    if (typeof str != 'string') {
+        __errorMsg('Expect `string` but ' + (typeof obj) + ' given.');
+    }
+    if (typeof obj != 'object') {
+        __errorMsg('Expect `object` but ' + (typeof obj) + ' given.');
+    }
+    return str.replace(/\[:(.*?)\]/g , (m , p) => {
+        return !!obj[p] ? obj[p] : '';
+    });
 }
 
 /**
@@ -87,5 +112,6 @@ function fetchAPI(args) {
 }
 
 export {
-    fetchAPI
+    fetchAPI,
+    format
 }

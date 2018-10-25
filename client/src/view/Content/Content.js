@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import '../../common/common.css';
 import { Spinner } from '../../common';
+import './Content.css'
 import Loadable from 'react-loadable';
 
 class Content extends Component {

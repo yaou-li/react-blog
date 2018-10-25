@@ -13,7 +13,6 @@ class Blog extends Component {
     render() {
         return (
             <div id='blog'>
-                <div className='title'>Blog</div>
                 <Switch>
                     <Route path='/blog' exact render={(props) => <BlogList toRoute={this.props.toRoute} {...props}/>}/>
                     <Route path='/blog/:demoid' render={(props) => <BlogDetail {...props}/>}/>
