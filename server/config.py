@@ -8,3 +8,5 @@ MYSQL_DB = config.get('MYSQL_DB', 'real_asset')
 
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8mb4'.format(MYSQL_USER, MYSQL_PASS, MYSQL_HOST, MYSQL_PORT, MYSQL_DB)
 SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+URL_PREFIX = '/api'

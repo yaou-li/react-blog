@@ -18,7 +18,7 @@ db.app = app
 db.init_app(app)
 
 for module in modules:
-    app.register_blueprint(module)
+    app.register_blueprint(module, url_prefix=config.URL_PREFIX)
 
 mysql.init_app(app)
 
