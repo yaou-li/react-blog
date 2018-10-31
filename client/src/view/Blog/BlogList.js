@@ -34,21 +34,21 @@ class BlogList extends Component {
                     <PlaceHolder height='2em'/>
                     <div className='art-title' onClick={(e) => { this.props.toRoute({path: '/blog/1'}) }}>
                         <Divider height='4px' width='12px' bkgColor='#3C3C3C' />
-                        <div class='topic'>Nginx配置的二三事</div>
-                        <div class='text'>Nginx配置的二三事</div>
-                        <div class='date'>2018.06.25</div>
+                        <div className='topic'>Nginx配置的二三事</div>
+                        <div className='text'>Nginx配置的二三事</div>
+                        <div className='date'>2018.06.25</div>
                     </div>
                     <div className='art-title' onClick={(e) => { this.props.toRoute({path: '/blog/2'}) }}>
                         <Divider height='4px' width='12px' bkgColor='#3C3C3C' />
-                        <div class='topic'>Yon Don't Know JS读书笔记</div>
-                        <div class='text'>Yon Don't Know JS读书笔记</div>
-                        <div class='date'>2018.06.25</div>
+                        <div className='topic'>Yon Don't Know JS读书笔记</div>
+                        <div className='text'>Yon Don't Know JS读书笔记</div>
+                        <div className='date'>2018.06.25</div>
                     </div>
                     <div className='art-title' onClick={(e) => { this.props.toRoute({path: '/blog/2'}) }}>
                         <Divider height='4px' width='12px' bkgColor='#3C3C3C' />
-                        <div class='topic'>初学python</div>
-                        <div class='text'>初学python</div>
-                        <div class='date'>2018.06.25</div>
+                        <div className='topic'>初学python</div>
+                        <div className='text'>初学python</div>
+                        <div className='date'>2018.06.25</div>
                     </div>
                 </section>
             </div> 

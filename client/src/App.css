@@ -12,6 +12,10 @@ body, html, #root, .App {
     color: #3C3C3C;
 }
 
+::placeholder {
+    color: #D5D5D5;
+}
+
 .App {
     position: relative;
     text-align: center;

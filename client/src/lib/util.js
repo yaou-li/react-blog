@@ -58,12 +58,18 @@ function fetchAPI(args) {
     let success = (typeof args.success === 'function') ? args.success : () => {};
     let error = (typeof args.error === 'function') ? args.error : () => {};
     let complete = (typeof args.complete === 'function') ? args.complete : () => {};
+    let token = args.token
 
     let options = {
         method: method,
-        headers: args.headers || {},
+        headers: args.headers || new Headers(),
         credentials: 'include'
     };
+
+    //append token if given
+    if (token) {
+        options.headers.set('Authorization', 'Bearer ' + token);
+    }
 
     if (method.toLowerCase() === 'get') {
         url = url.replace(/#.*$/,'');
@@ -111,7 +117,22 @@ function fetchAPI(args) {
     return true;
 }
 
+/**
+ * encode to base64 using unicode
+ * @param {string} str 
+ */
+function base64Encode(str) {
+    // first we use encodeURIComponent to get percent-encoded UTF-8,
+    // then we convert the percent encodings into raw bytes which
+    // can be fed into btoa.
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    }));
+}
+
 export {
     fetchAPI,
-    format
+    format,
+    base64Encode
 }

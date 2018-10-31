@@ -95,6 +95,7 @@
 
 #blog .detail .content {
     /* text-indent: 1em;     */
+    position: relative;
     text-align: start;
     padding: 1em 0;
 }

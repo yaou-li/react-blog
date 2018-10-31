@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Demo.css';
-import { fetchAPI, format } from '../../lib/util'
-import { API } from '../../lib/config'
+import { fetchAPI, format, API } from '../../lib'
 import { Card } from '../../common';
 import game from '../../assets/img/game_thumbnail.png';
 
