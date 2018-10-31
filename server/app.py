@@ -1,9 +1,11 @@
 from flask import Flask
+from flask_cors import CORS, cross_origin
 from flaskext.mysql import MySQL
 from flask_script import Manager, Server
 from flask_migrate import Migrate, MigrateCommand
 from database import db
 from api import modules
+from config import FRONT_HOST
 import config
 import time
 import json
@@ -11,6 +13,7 @@ import os
 import sys
 
 app = Flask('app')
+CORS(app, origins=[FRONT_HOST])
 mysql = MySQL()
 app.config.from_object(config)
 
@@ -30,6 +33,10 @@ manager.add_command('db', MigrateCommand)
 from models.District import District
 from models.Neighborhood import Neighborhood
 from models.Vendor import Vendor
+from models.User import User
+from models.Article import Article
+from models.Comment import Comment
+from models.Image import Image 
 
 @manager.command
 def create_db():
@@ -37,7 +44,7 @@ def create_db():
 	db.session.commit()
 
 @manager.command
-def upgrade_db(sql):
+def upgrade_db(sql=False):
     if not os.path.exists('migrations'):
         print ' ---------- init migrate ----------'
         os.system("python {} db init".format(sys.argv[0]))
@@ -53,6 +60,3 @@ def upgrade_db(sql):
 @manager.command
 def start():
     app.run(debug=True, host='0.0.0.0', port=8010)
-
-if __name__ == "__main__":
-    manager.run()

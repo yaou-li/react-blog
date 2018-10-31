@@ -11,8 +11,7 @@ class District(db.Model):
     update_time = db.Column(db.Integer, nullable=False, default=time.time, onupdate=time.time)
 
     def __init__(self, **kwargs):
-        for k, v in kwargs.items():
-            setattr(self, k, v)
+        self.update(**kwargs)
 
     def update(self, **kwargs):
         for k, v in kwargs.items():

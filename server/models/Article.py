@@ -4,10 +4,13 @@ import json
 
 from database import db
 
-class Vendor(db.Model):
-    
+class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
+    title = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.Text)
+    like_count = db.Column(db.Integer, default=0)
+    share_count = db.Column(db.Integer, default=0)
     update_time = db.Column(db.Integer, nullable=False, default=time.time, onupdate=time.time)
 
     def __init__(self, **kwargs):
@@ -19,4 +22,4 @@ class Vendor(db.Model):
             setattr(self, k, v)
 
     def __repr__(self):
-        return '<Vendor %r>' % self.name
+        return '<Article %r>' % self.name
