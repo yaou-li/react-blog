@@ -19,6 +19,10 @@ class Content extends Component {
         const Login = Loadable({
             loader: () => import('../Login/Login'),
             loading: Spinner
+        });
+        const About = Loadable({
+            loader: () => import('../About/About'),
+            loading: Spinner
         })
         // const NotFoundLoadable = Loadable({
         //     loader: () => import('../NotFound/NotFound'),
@@ -31,6 +35,7 @@ class Content extends Component {
                         <Route path='/demo' render={(props) => <Demo toRoute={this.props.toRoute} {...props}/>}/>
                         <Route path='/blog' render={(props) => <Blog toRoute={this.props.toRoute} {...props}/>}/>
                         <Route path='/login' render={(props) => <Login toRoute={this.props.toRoute} {...props}/>}/>
+                        <Route path='/about' render={(props) => <About toRoute={this.props.toRoute} {...props}/>}/>
                         {/* <Route path='/realtime' component={RealtimeLoadable}/>
                         <Route component={NotFoundLoadable}/> */}
                     </Switch>
