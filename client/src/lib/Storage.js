@@ -1,3 +1,7 @@
+/**
+ * Storage class is used for controlling & updating the local params.
+ */
+
 const LABEL = 'yaous-blog'
 const DEFAULT_DURATION = 10 * 60 * 1000
 export class Storage {
@@ -5,12 +9,19 @@ export class Storage {
         this.params = {};
     }
 
+    /**
+     * force the replace the old with current params
+     */
     force() {
         window.localStorage.removeItem(LABEL);
         window.localStorage.setItem(LABEL, JSON.stringify(this.params));
         return this;
     }
 
+    /**
+     * pull and merge the current params with data in storage.
+     * use params' data if key both appears in params and storage
+     */
     sync() {
         let params = JSON.parse(window.localStorage.getItem(LABEL));
         for (let name in params) {
@@ -20,6 +31,11 @@ export class Storage {
         return this.force();
     }
 
+    /**
+     * get param by name
+     * remove param if expired
+     * @param {string} name 
+     */
     get(name) {
         this.sync();
         if (!this.params.hasOwnProperty(name)) return '';
@@ -31,6 +47,12 @@ export class Storage {
         return this.params[name].data;
     }
 
+    /**
+     * save the new params with key, val and duration
+     * @param {string} name 
+     * @param {mix} val 
+     * @param {int} duration 
+     */
     set(name,val,duration) {
         this.sync();
         this.params[name] = {
@@ -41,17 +63,27 @@ export class Storage {
         return this.force();
     }
 
+    /**
+     * @param {string} name 
+     */
     del(name) {
         this.sync();
         if (this.params.hasOwnProperty(name)) delete this.params[name];
         return this.force();
     }
 
+    /**
+     * clear params object and storage
+     */
     clear() {
         this.params = {};
         window.localStorage.removeItem(LABEL);        
     }
 
+    /**
+     * check if param is expired
+     * @param {string} name 
+     */
     isExpired(name){
         let now = +new Date();
         if (!this.params.hasOwnProperty(name)) return false;
