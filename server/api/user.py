@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, g
-from flask_httpauth import HTTPBasicAuth
+from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 from models.User import User
 from common.json import json_wrapper
 from database import db
 
 auth = HTTPBasicAuth()
+auth_token = HTTPTokenAuth(scheme='Token')
 user = Blueprint('user', __name__, template_folder='templates')
 
 # @user.route('/user/add', methods=['POST'])
@@ -47,14 +48,33 @@ def login_user():
     else:
         return json_wrapper(data={})
 
+@user.route('/token/refresh', methods=['GET','POST'])
+@auth_token.login_required
+def check_token():
+    token = g.user.generate_auth_token()
+    return json_wrapper(data={ 'token': token.decode('ascii') })
+
+@auth_token.verify_token
+def verify_token(token):
+    # first try to authenticate by token
+    print '---------token--------'
+    print token
+    user = User.verify_auth_token(token)
+    if not user:
+        return False
+    g.user = user
+    return True
+
 @user.route('/token', methods=['GET','POST'])
 @auth.login_required
 def get_auth_token():
     token = g.user.generate_auth_token()
     return json_wrapper(data={ 'token': token.decode('ascii') })
 
+
 @auth.verify_password
 def verify_password(username_or_token, password):
+    print username_or_token, password
     # first try to authenticate by token
     user = User.verify_auth_token(username_or_token)
     if not user:
