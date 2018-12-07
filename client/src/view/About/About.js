@@ -1,44 +1,36 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {Editor, EditorState, RichUtils} from 'draft-js';
+import showdown from 'showdown';
+import "./About.css";
 
 class About extends Component {
     constructor(props) {
         super(props);
-        this.state = {editorState: EditorState.createEmpty()};
-        this.handleKeyCommand = this.handleKeyCommand.bind(this);
+        this.state = {
+            text: '',
+            html: ' ',
+        };
     }
 
-    handleChange(editorState) {
-        console.log(editorState.getCurrentContent());
-        this.setState({editorState});
-    }
-
-    _onBoldClick() {
-        this.handleChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
-      }
-    
-    handleKeyCommand(command, editorState) {
-        const newState = RichUtils.handleKeyCommand(editorState, command);
-        if (newState) {
-            this.handleChange(newState);
-            return 'handled';
-        }
-        return 'not-handled';
-    }
     componentDidMount() {
         
     }
-
+    
+    handleChange(e) {
+        let converter = new showdown.Converter();
+        let html      = converter.makeHtml(e.currentTarget.value);  
+        this.setState({
+            html: html,            
+        });
+    }
+    
     render() {
         return (
-            <div>
-                <button onClick={this._onBoldClick.bind(this)}>Bold</button>
-                <Editor 
-                    editorState={this.state.editorState}
-                    handleKeyCommand={this.handleKeyCommand}
-                    onChange={this.handleChange.bind(this)}
-                />
+            <div id="about">
+                <div className="editor">
+                    <textarea onChange={(e) => this.handleChange(e)}/>
+                </div>
+                <div className="blog" dangerouslySetInnerHTML={{__html: this.state.html}} />
             </div>
         )
     }
