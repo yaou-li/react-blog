@@ -13,7 +13,7 @@ import os
 import sys
 
 app = Flask('app')
-CORS(app, origins=[FRONT_HOST])
+CORS(app, origins=[FRONT_HOST], supports_credentials=True)
 mysql = MySQL()
 app.config.from_object(config)
 
@@ -60,3 +60,6 @@ def upgrade_db(sql=False):
 @manager.command
 def start():
     app.run(debug=True, host='0.0.0.0', port=8010)
+
+if __name__ == "__main__":
+    manager.run()
