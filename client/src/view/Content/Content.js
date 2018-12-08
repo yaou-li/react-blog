@@ -24,6 +24,10 @@ class Content extends Component {
             loader: () => import('../About/About'),
             loading: Spinner
         })
+        const Editor = Loadable({
+            loader: () => import('../Editor/Editor'),
+            loading: Spinner
+        })
         // const NotFoundLoadable = Loadable({
         //     loader: () => import('../NotFound/NotFound'),
         //     loading: Spinner
@@ -36,6 +40,7 @@ class Content extends Component {
                         <Route path='/blog' render={(props) => <Blog toRoute={this.props.toRoute} {...props}/>}/>
                         <Route path='/login' render={(props) => <Login toRoute={this.props.toRoute} {...props}/>}/>
                         <Route path='/about' render={(props) => <About toRoute={this.props.toRoute} {...props}/>}/>
+                        <Route path='/editor' render={(props) => <Editor toRoute={this.props.toRoute} {...props}/>}/>
                         {/* <Route path='/realtime' component={RealtimeLoadable}/>
                         <Route component={NotFoundLoadable}/> */}
                     </Switch>

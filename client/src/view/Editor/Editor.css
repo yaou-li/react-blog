@@ -1,0 +1,42 @@
+#editor {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    position: relative;
+    height: 100%;
+}
+
+#editor .btn-save {
+    padding: 10px;
+}
+
+#editor .btn-save:hover {
+    cursor: pointer;
+}
+
+.editor {
+    position: relative;
+    float: left;
+    height: calc(100% - 39px);
+    max-height: calc(100% - 39px);
+    width: 50%;
+    max-width: 50%;
+    padding: 10px;
+}
+
+.editor textarea {
+    resize:  none;
+    width: 100%;
+    border: 1px solid #E8E8E8;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    word-wrap: break-word;
+    height: 100%;
+    font-size: 1em;
+}
+
+.blog {
+    width: 50%;
+    float: left;
+    height: calc(100% - 39px);
+    max-height: calc(100% - 39px);
+    overflow: auto;
+}
