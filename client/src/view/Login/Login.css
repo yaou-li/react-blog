@@ -11,19 +11,18 @@
 #login > input {
     margin: 2em;
     line-height: 1.5;
-    padding: .5em;
-    font-size: .8em;
+    padding: 1em;
+    font-size: 1em;
+    border: 0;
 }
 
 #login > input:focus,
 #login > .btn-submit {
     border: 1px solid #3C3C3C;
-    
-    
 }
 
 #login > .btn-submit {
     margin: 2em;
-    font-size: .8em;
-    padding: .5em;
+    font-size: 1em;
+    padding: 1em;
 }

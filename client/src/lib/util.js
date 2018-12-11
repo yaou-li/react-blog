@@ -68,7 +68,7 @@ function fetchAPI(args) {
 
     //append token if given
     if (token) {
-        options.headers.set('Authorization', 'Bearer ' + token);
+        options.headers.set('Authorization', 'Token ' + token);
     }
 
     if (method.toLowerCase() === 'get') {

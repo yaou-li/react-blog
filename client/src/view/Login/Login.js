@@ -20,15 +20,16 @@ class Login extends Component {
 
     login() {
         let headers = new Headers();
-        // headers.set('Authorization', 'Basic ' + base64Encode(this.state.username + ":" + this.state.password));
+        headers.set('Authorization', 'Basic ' + base64Encode(this.state.username + ":" + this.state.password));
         // console.log(storage.get('token'));
         // headers.set('Authorization', 'Basic ' + base64Encode(storage.get('token') + ":fake"));
-        headers.set('Authorization', 'Token ' + storage.get('token'));
+        // headers.set('Authorization', 'Token ' + storage.get('token'));
         fetchAPI({
             url: API.TOKEN,
             headers: headers,
             success: (data) => {
                 if (!data.token) return false;
+                window.alert("login successfully");
                 storage.set('token', data.token, 24 * 3600);
             },
             // token: storage.get('token')

@@ -8,7 +8,7 @@ auth = HTTPBasicAuth()
 auth_token = HTTPTokenAuth(scheme='Token')
 user = Blueprint('user', __name__, template_folder='templates')
 
-# @user.route('/user/add', methods=['POST'])
+# @user.route('/user/add', methods=['GET'])
 # def create_user():
 #     params = request.args
 #     name = params.get('username')
@@ -57,8 +57,6 @@ def check_token():
 @auth_token.verify_token
 def verify_token(token):
     # first try to authenticate by token
-    print '---------token--------'
-    print token
     user = User.verify_auth_token(token)
     if not user:
         return False
@@ -74,7 +72,6 @@ def get_auth_token():
 
 @auth.verify_password
 def verify_password(username_or_token, password):
-    print username_or_token, password
     # first try to authenticate by token
     user = User.verify_auth_token(username_or_token)
     if not user:
