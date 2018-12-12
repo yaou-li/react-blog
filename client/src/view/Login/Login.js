@@ -25,14 +25,13 @@ class Login extends Component {
         // headers.set('Authorization', 'Basic ' + base64Encode(storage.get('token') + ":fake"));
         // headers.set('Authorization', 'Token ' + storage.get('token'));
         fetchAPI({
-            url: API.TOKEN,
+            url: API.LOGIN,
             headers: headers,
             success: (data) => {
                 if (!data.token) return false;
                 window.alert("login successfully");
                 storage.set('token', data.token, 24 * 3600);
             },
-            // token: storage.get('token')
         });
     }
 

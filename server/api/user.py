@@ -63,7 +63,7 @@ def verify_token(token):
     g.user = user
     return True
 
-@user.route('/token', methods=['GET','POST'])
+@user.route('/login', methods=['GET','POST'])
 @auth.login_required
 def get_auth_token():
     token = g.user.generate_auth_token()

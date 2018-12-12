@@ -1,8 +1,7 @@
 import { API } from './config';
-import { fetchAPI, format, base64Encode } from './util'
-import { Storage } from './Storage'
-
-const storage = new Storage();
+import fetchAPI from './fetchAPI';
+import { format, base64Encode } from './util';
+import storage from './Storage';
 
 export {
     API,

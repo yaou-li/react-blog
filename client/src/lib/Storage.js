@@ -1,9 +1,10 @@
+import { DEFAULT_DURATION } from './config';
 /**
  * Storage class is used for controlling & updating the local params.
  */
 
 const LABEL = 'yaous-blog'
-const DEFAULT_DURATION = 10 * 60 * 1000
+
 export class Storage {
     constructor() {
         this.params = {};
@@ -87,7 +88,10 @@ export class Storage {
     isExpired(name){
         let now = +new Date();
         if (!this.params.hasOwnProperty(name)) return false;
-        return this.params[name].timestamp + this.params[name].duration <= now;
+        return this.params[name].timestamp + this.params[name].duration >= now;
     }
 
 }
+
+const storage = new Storage();
+export default storage;
