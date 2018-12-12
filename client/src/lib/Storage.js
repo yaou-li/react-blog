@@ -88,7 +88,7 @@ export class Storage {
     isExpired(name){
         let now = +new Date();
         if (!this.params.hasOwnProperty(name)) return false;
-        return this.params[name].timestamp + this.params[name].duration >= now;
+        return this.params[name].timestamp + this.params[name].duration <= now;
     }
 
 }
