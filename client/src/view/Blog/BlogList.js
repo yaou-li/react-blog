@@ -53,7 +53,7 @@ class BlogList extends Component {
                     </div>
                 </section>
                 {   isLoggedIn() &&
-                    <div className="btn btn-new" onClick={(e) => this.props.toRoute('/editor')}>
+                    <div className="btn btn-new" onClick={(e) => this.props.toRoute({path: '/editor'})}>
                         <i className="fas fa-pencil-alt"></i>
                     </div>
                 }
