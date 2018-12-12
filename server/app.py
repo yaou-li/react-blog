@@ -37,6 +37,8 @@ from models.User import User
 from models.Article import Article
 from models.Comment import Comment
 from models.Image import Image 
+from models.Tag import Tag
+from models.ArticleTag import ArticleTag
 
 @manager.command
 def create_db():

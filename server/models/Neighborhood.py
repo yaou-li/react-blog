@@ -28,3 +28,5 @@ class Neighborhood(db.Model):
 
     def __repr__(self):
         return '<Neighborhood %r>' % self.name
+
+db.Index('neighborhood_price', Neighborhood.price)   
