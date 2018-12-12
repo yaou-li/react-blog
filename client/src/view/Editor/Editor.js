@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { withRouter } from 'react-router-dom';
 import showdown from 'showdown';
 import './Editor.css';
 import { EditableText, Divider } from '../../common';
+import { fetchAPI, format, base64Encode, API, storage } from '../../lib'
 
 class Editor extends Component {
     constructor(props) {
@@ -12,6 +14,20 @@ class Editor extends Component {
             html: ' ',
             title: 'New Blog',
         };
+    }
+
+    componentWillMount() {
+        fetchAPI({
+            url: API.TOKEN,
+            success: (data) => {
+                if (!data.token) return false;
+                storage.set('token', data.token, 24 * 3600);
+            },
+            error: (data) => {
+                window.alert('User Authentication Failed.');
+                this.props.history.push('/login');
+            }
+        });
     }
 
     componentDidMount() {
@@ -52,4 +68,4 @@ class Editor extends Component {
     }
 }
 
-export default Editor
+export default withRouter(Editor)

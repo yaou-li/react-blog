@@ -41,3 +41,7 @@
 .margin-left-15 {
     margin-left: 15px;
 }
+
+.btn {
+    cursor: pointer;
+}

@@ -143,3 +143,15 @@
 #blog h2 {
     border-bottom: 1px solid #E8E8E8;
 }
+
+#blog-list .btn-new {
+    position: fixed;
+    bottom: 10%;
+    right: 10%;
+    padding: .5em;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background-color: #3c3c3c;
+    color: #E8E8E8;
+    box-shadow: 1px 1px #C0C0C0;
+}

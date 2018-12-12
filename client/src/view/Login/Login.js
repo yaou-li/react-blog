@@ -20,6 +20,7 @@ class Login extends Component {
 
     login() {
         let headers = new Headers();
+        storage.del('token');
         headers.set('Authorization', 'Basic ' + base64Encode(this.state.username + ":" + this.state.password));
         // console.log(storage.get('token'));
         // headers.set('Authorization', 'Basic ' + base64Encode(storage.get('token') + ":fake"));

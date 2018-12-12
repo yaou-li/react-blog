@@ -1,6 +1,7 @@
 import { API } from './config';
 import fetchAPI from './fetchAPI';
 import { format, base64Encode } from './util';
+import { isLoggedIn } from './auth';
 import storage from './Storage';
 
 export {
@@ -8,5 +9,6 @@ export {
     fetchAPI,
     format,
     base64Encode,
-    storage
+    storage,
+    isLoggedIn
 }
