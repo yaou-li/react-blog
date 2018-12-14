@@ -17,3 +17,6 @@ SECRET_KEY = 'abc'
 
 # used for CORS origin
 FRONT_HOST = 'http://localhost:3000'
+
+# token valid duration
+TOKEN_EXPIRATION_TIME = 60 * 60

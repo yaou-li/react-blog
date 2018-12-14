@@ -21,5 +21,15 @@ class Article(db.Model):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+    def get_info(self):
+        info = {
+            'id': self.id,
+            'title': self.title,
+            'content': self.content,
+            'author': self.user_id,
+            'time': self.update_time
+        }
+        return info
+
     def __repr__(self):
         return '<Article %r>' % self.name

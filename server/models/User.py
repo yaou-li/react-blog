@@ -6,6 +6,7 @@ from config import SECRET_KEY
 from database import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
+from config import TOKEN_EXPIRATION_TIME
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,7 +41,7 @@ class User(db.Model):
         }
         return info
 
-    def generate_auth_token(self, expiration = 600):
+    def generate_auth_token(self, expiration = TOKEN_EXPIRATION_TIME):
         s = Serializer(SECRET_KEY, expires_in = expiration)
         return s.dumps({ 'id': self.id })
 

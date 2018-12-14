@@ -10,6 +10,7 @@ class Editor extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             text: '',
             html: ' ',
             title: 'New Blog',
@@ -34,7 +35,7 @@ class Editor extends Component {
         
     }
     
-    handleChange(e) {
+    onChange(e) {
         let converter = new showdown.Converter({
             strikethrough: true,
             tasklists: true,
@@ -43,8 +44,27 @@ class Editor extends Component {
         });
         let html = converter.makeHtml(e.currentTarget.value);  
         this.setState({
+            text: e.currentTarget.value,
             html: html,            
         });
+    }
+
+    save() {
+        fetchAPI({
+            url: !this.state.id ? API.ARTICLE : API.ARTICLE + '/' + this.state.id,
+            method: !this.state.id ? 'POST' : 'PUT',
+            params: {
+                title: this.state.title,
+                content: this.state.text
+            },
+            success: (data) => {
+                console.log(data);
+                this.setState({
+                    id: data.id
+                });
+                console.log('saved successfully');
+            },
+        })
     }
     
     render() {
@@ -56,11 +76,11 @@ class Editor extends Component {
                         onChange={(text) => this.setState({title: text})}
                         width="50%"    
                     />
-                    <div className="btn-save">Save</div>
+                    <div className="btn-save" onClick={(e) => this.save(e)}>Save</div>
                 </div>
                 <Divider />
                 <div className="editor">
-                    <textarea onChange={(e) => this.handleChange(e)}/>
+                    <textarea onChange={(e) => this.onChange(e)}/>
                 </div>
                 <div className="blog" dangerouslySetInnerHTML={{__html: this.state.html}} />
             </div>
