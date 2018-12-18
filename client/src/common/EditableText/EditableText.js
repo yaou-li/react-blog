@@ -41,7 +41,7 @@ class EditableText extends Component {
         this.setState({
             text: e.currentTarget.value
         }, () => {
-            this.props.onChange(this.state.text)
+            this.state.text && this.props.onChange(this.state.text)
         });
         return this;
     }

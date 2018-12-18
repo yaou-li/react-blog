@@ -4,16 +4,16 @@ import { withRouter } from 'react-router-dom';
 import showdown from 'showdown';
 import './Editor.css';
 import { EditableText, Divider } from '../../common';
-import { fetchAPI, format, base64Encode, API, storage } from '../../lib'
+import { fetchAPI, API, DEFAULT_DURATION, storage } from '../../lib'
 
 class Editor extends Component {
     constructor(props) {
         super(props);
         this.state = {
             id: '',
-            text: '',
+            content: '',
             html: ' ',
-            title: 'New Blog',
+            title: this.props.match.params.blogId ? '' : 'New Blog',
         };
     }
 
@@ -22,7 +22,7 @@ class Editor extends Component {
             url: API.TOKEN,
             success: (data) => {
                 if (!data.token) return false;
-                storage.set('token', data.token, 24 * 3600);
+                storage.set('token', data.token, DEFAULT_DURATION);
             },
             error: (data) => {
                 window.alert('User Authentication Failed.');
@@ -32,7 +32,17 @@ class Editor extends Component {
     }
 
     componentDidMount() {
-        
+        if (this.props.match.params.blogId) {
+            fetchAPI({
+                url: API.ARTICLE + '/' + this.props.match.params.blogId,
+                success: (data) => {
+                    this.setState(data);
+                    this.onChange({currentTarget:{
+                        value: data.content
+                    }});
+                }
+            })
+        }
     }
     
     onChange(e) {
@@ -44,7 +54,7 @@ class Editor extends Component {
         });
         let html = converter.makeHtml(e.currentTarget.value);  
         this.setState({
-            text: e.currentTarget.value,
+            content: e.currentTarget.value,
             html: html,            
         });
     }
@@ -55,32 +65,33 @@ class Editor extends Component {
             method: !this.state.id ? 'POST' : 'PUT',
             params: {
                 title: this.state.title,
-                content: this.state.text
+                content: this.state.content
             },
             success: (data) => {
-                console.log(data);
                 this.setState({
                     id: data.id
                 });
                 console.log('saved successfully');
             },
-        })
+        });
     }
     
     render() {
         return (
             <div id="editor">
                 <div className="title flex justify-between">
-                    <EditableText 
-                        defaultText={this.state.title} 
-                        onChange={(text) => this.setState({title: text})}
-                        width="50%"    
-                    />
+                    {   (!this.props.match.params.blogId || this.state.title) &&
+                        <EditableText
+                            defaultText={this.state.title}
+                            onChange={(text) => this.setState({title: text})}
+                            width="50%"
+                        />
+                    }
                     <div className="btn-save" onClick={(e) => this.save(e)}>Save</div>
                 </div>
                 <Divider />
                 <div className="editor">
-                    <textarea onChange={(e) => this.onChange(e)}/>
+                    <textarea value={this.state.content} onChange={(e) => this.onChange(e)}/>
                 </div>
                 <div className="blog" dangerouslySetInnerHTML={{__html: this.state.html}} />
             </div>

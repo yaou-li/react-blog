@@ -40,6 +40,7 @@ class Content extends Component {
                         <Route path='/blog' render={(props) => <Blog toRoute={this.props.toRoute} {...props}/>}/>
                         <Route path='/login' render={(props) => <Login toRoute={this.props.toRoute} {...props}/>}/>
                         <Route path='/about' render={(props) => <About toRoute={this.props.toRoute} {...props}/>}/>
+                        <Route path='/editor/:blogId' render={(props) => <Editor toRoute={this.props.toRoute} {...props}/>}/>
                         <Route path='/editor' render={(props) => <Editor toRoute={this.props.toRoute} {...props}/>}/>
                         {/* <Route path='/realtime' component={RealtimeLoadable}/>
                         <Route component={NotFoundLoadable}/> */}

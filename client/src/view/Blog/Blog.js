@@ -15,7 +15,7 @@ class Blog extends Component {
             <div id='blog'>
                 <Switch>
                     <Route path='/blog' exact render={(props) => <BlogList toRoute={this.props.toRoute} {...props}/>}/>
-                    <Route path='/blog/:demoid' render={(props) => <BlogDetail {...props}/>}/>
+                    <Route path='/blog/:id' render={(props) => <BlogDetail toRoute={this.props.toRoute} {...props}/>}/>
                 </Switch>
             </div>
         )

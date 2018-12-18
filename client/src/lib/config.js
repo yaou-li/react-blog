@@ -5,7 +5,7 @@ const API = {
     TOKEN: HOST + '/token/refresh',
     ARTICLE: HOST + '/article'
 }
-const DEFAULT_DURATION = 10 * 60 * 1000
+const DEFAULT_DURATION = 12 * 60 * 1000;
 
 export {
     API,

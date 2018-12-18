@@ -9,6 +9,7 @@ class Article(db.Model):
     title = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     content = db.Column(db.Text)
+    desc = db.Column(db.String(255))
     like_count = db.Column(db.Integer, default=0)
     share_count = db.Column(db.Integer, default=0)
     update_time = db.Column(db.Integer, nullable=False, default=time.time, onupdate=time.time)
@@ -25,6 +26,7 @@ class Article(db.Model):
         info = {
             'id': self.id,
             'title': self.title,
+            'desc': self.desc,
             'content': self.content,
             'author': self.user_id,
             'time': self.update_time
