@@ -1,6 +1,6 @@
 import { API, DEFAULT_DURATION } from './config';
 import fetchAPI from './fetchAPI';
-import { format, base64Encode } from './util';
+import { format, base64Encode, formatTime } from './util';
 import { isLoggedIn } from './auth';
 import storage from './Storage';
 
@@ -11,5 +11,6 @@ export {
     format,
     base64Encode,
     storage,
-    isLoggedIn
+    isLoggedIn,
+    formatTime
 }

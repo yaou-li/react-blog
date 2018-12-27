@@ -34,4 +34,4 @@ class Article(db.Model):
         return info
 
     def __repr__(self):
-        return '<Article %r>' % self.name
+        return '<Article %r>' % self.title

@@ -1,14 +1,51 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Divider, PlaceHolder } from '../../common';
+import { Divider, PlaceHolder, InfiniteList } from '../../common';
 import './Blog.css';
 import { isLoggedIn } from '../../lib';
-
+import { fetchAPI, API, DEFAULT_DURATION, storage, formatTime } from '../../lib';
 
 class BlogList extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            list: [],
+            test: '',
+            page: {
+                current: 0,
+                next: 1,
+            }
+        }
     }
+
+    loadData(callback) {
+        fetchAPI({
+            url: API.ARTICLE,
+            params: {
+                page: this.state.page.next,
+                size: 5,
+            },
+            success: (data, page) => {
+                this.setState({
+                    list: this.state.list.concat(data),
+                    page: {
+                        current: page.current,
+                        next: page.total > page.current ? (page.current + 1) : page.current
+                    }
+                });
+                callback();
+            }
+        });
+    }
+
+    // componentDidMount() {
+    //     fetchAPI({
+    //         url: API.ARTICLE,
+    //         success: (data) => {
+    //             this.setState({list: data});
+    //         }
+    //     });
+    // }
 
     render() {
         return (
@@ -33,24 +70,16 @@ class BlogList extends Component {
                     <div className="year">2018</div>
                     <Divider />
                     <PlaceHolder height="2em"/>
-                    <div className="art-title" onClick={(e) => { this.props.toRoute({path: "/blog/1"}) }}>
-                        <Divider height="4px" width="12px" bkgColor="#3C3C3C" />
-                        <div className="topic">Nginx配置的二三事</div>
-                        <div className="text">Nginx配置的二三事</div>
-                        <div className="date">2018.06.25</div>
-                    </div>
-                    <div className="art-title" onClick={(e) => { this.props.toRoute({path: "/blog/2"}) }}>
-                        <Divider height="4px" width="12px" bkgColor="#3C3C3C" />
-                        <div className="topic">Yon Don"t Know JS读书笔记</div>
-                        <div className="text">Yon Don"t Know JS读书笔记</div>
-                        <div className="date">2018.06.25</div>
-                    </div>
-                    <div className="art-title" onClick={(e) => { this.props.toRoute({path: "/blog/2"}) }}>
-                        <Divider height="4px" width="12px" bkgColor="#3C3C3C" />
-                        <div className="topic">初学python</div>
-                        <div className="text">初学python</div>
-                        <div className="date">2018.06.25</div>
-                    </div>
+                    <InfiniteList load={this.loadData.bind(this)} page={this.state.page} >
+                        {   this.state.list.map((blog, key) =>
+                            <div className="art-title" onClick={(e) => { this.props.toRoute({path: "/blog/1"}) }} key={key}>
+                                <Divider height="4px" width="12px" bkgColor="#3C3C3C" />
+                                <div className="topic">{blog.title}</div>
+                                <div className="text">{blog.content.slice(0, 10)}</div>
+                                <div className="date">{formatTime(blog.time * 1000, 'yyyy-mm-dd')}</div>
+                            </div>
+                        )}
+                    </InfiniteList>
                 </section>
                 {   isLoggedIn() &&
                     <div className="btn btn-new" onClick={(e) => this.props.toRoute({path: '/editor'})}>

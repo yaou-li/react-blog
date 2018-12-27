@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import showdown from 'showdown';
 import './Editor.css';
 import { EditableText, Divider } from '../../common';
-import { fetchAPI, API, DEFAULT_DURATION, storage } from '../../lib'
+import { fetchAPI, API, DEFAULT_DURATION, storage } from '../../lib';
 
 class Editor extends Component {
     constructor(props) {
@@ -26,12 +26,15 @@ class Editor extends Component {
             },
             error: (data) => {
                 window.alert('User Authentication Failed.');
-                this.props.history.push('/login');
+                this.props.toRoute({
+                    path: '/login'
+                });
             }
         });
     }
 
     componentDidMount() {
+        //load prev data if blog id is provided
         if (this.props.match.params.blogId) {
             fetchAPI({
                 url: API.ARTICLE + '/' + this.props.match.params.blogId,
@@ -41,7 +44,7 @@ class Editor extends Component {
                         value: data.content
                     }});
                 }
-            })
+            });
         }
     }
     
@@ -71,7 +74,9 @@ class Editor extends Component {
                 this.setState({
                     id: data.id
                 });
-                console.log('saved successfully');
+                this.props.toRoute({
+                    path: '/blog'
+                });
             },
         });
     }

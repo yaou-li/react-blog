@@ -54,7 +54,7 @@ export default function fetchAPI(args) {
             switch (result.code) {
                 case 0:
                     __debugMsg("Request Success! Data:",result.data);
-                    success(result.data);
+                    success(result.data, result.page);
                     break;
                 default:
                     __debugMsg("Executing Error Callback:",result.data);

@@ -59,8 +59,36 @@ function base64Encode(str) {
     }));
 }
 
+function formatTime(time,format) {
+    time = typeof time == 'number' ? new Date(time) : time;
+    format = format || 'yyyy-mm-dd hh:MM:ss';
+    var replaceMent = {
+        'yyyy': time.getFullYear(),
+        'mm': appendZero(time.getMonth() + 1),
+        'm': time.getMonth() + 1,
+        'dd': appendZero(time.getDate()),
+        'd': time.getDate(),
+        'hh': appendZero(time.getHours()),
+        'h': time.getHours(),
+        'MM': appendZero(time.getMinutes()),
+        'M': time.getMinutes(),
+        'ss': appendZero(time.getSeconds()),
+        's': time.getSeconds
+    }
+    for( var k in replaceMent ){
+        format = format.replace(k, replaceMent[k]);
+    }
+
+    return format;
+}
+
+function appendZero(str) {
+    return ('0' + str).substr(-2,2);
+}
+
 export {
     format,
+    formatTime,
     base64Encode,
     json2query,
     __debugMsg
