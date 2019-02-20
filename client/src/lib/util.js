@@ -91,5 +91,6 @@ export {
     formatTime,
     base64Encode,
     json2query,
-    __debugMsg
+    __debugMsg,
+    __errorMsg
 }

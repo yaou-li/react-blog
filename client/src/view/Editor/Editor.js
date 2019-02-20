@@ -15,6 +15,16 @@ class Editor extends Component {
             html: ' ',
             title: this.props.match.params.blogId ? '' : 'New Blog',
         };
+        this.converter = new showdown.Converter({
+            strikethrough: true,
+            tasklists: true,
+            backslashEscapesHTMLTags: true,
+            ghCodeBlocks: true
+        });
+    }
+
+    componentDidMount() {
+        console.log('updated');
     }
 
     componentWillMount() {
@@ -49,17 +59,36 @@ class Editor extends Component {
     }
     
     onChange(e) {
-        let converter = new showdown.Converter({
-            strikethrough: true,
-            tasklists: true,
-            backslashEscapesHTMLTags: true,
-            ghCodeBlocks: true
-        });
-        let html = converter.makeHtml(e.currentTarget.value);  
+        let html = this.converter.makeHtml(e.currentTarget.value);  
         this.setState({
             content: e.currentTarget.value,
             html: html,            
         });
+    }
+
+    onImageAdd(e) {
+        let fr = new FileReader(),
+            /**
+             * data object is different base on event type
+             * 'drop' => dataTransfer
+             *'paste' => clipboardData (extends from dataTransfer)
+             */
+            dataList = e.type == 'paste' ? e.clipboardData.items : e.dataTransfer.items;
+
+        fr.onload = () => {
+            let content =`${this.state.content} \n ![image not found](${fr.result})`;
+            this.setState({
+                content: content,
+                html: this.converter.makeHtml(content)
+            });
+        }
+
+        for (var i = 0; i < dataList.length; i++) {
+            if (dataList[i].type.match('^image/')) {
+                e.preventDefault();
+                fr.readAsDataURL(dataList[i].getAsFile());
+            }
+        }
     }
 
     save() {
@@ -95,8 +124,8 @@ class Editor extends Component {
                     <div className="btn-save" onClick={(e) => this.save(e)}>Save</div>
                 </div>
                 <Divider />
-                <div className="editor">
-                    <textarea value={this.state.content} onChange={(e) => this.onChange(e)}/>
+                <div className="editor" onPaste={(e) => this.onImageAdd(e)} onDrop={(e) => this.onImageAdd(e)}>
+                    <textarea value={this.state.content} onChange={(e) => this.onChange(e)} />
                 </div>
                 <div className="blog" dangerouslySetInnerHTML={{__html: this.state.html}} />
             </div>
