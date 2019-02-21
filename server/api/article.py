@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, g
+from flask import Blueprint, request, g
 from models.Article import Article
 from models.User import User
 from common.json import json_wrapper

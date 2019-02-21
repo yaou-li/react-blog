@@ -38,14 +38,9 @@ class BlogList extends Component {
         });
     }
 
-    // componentDidMount() {
-    //     fetchAPI({
-    //         url: API.ARTICLE,
-    //         success: (data) => {
-    //             this.setState({list: data});
-    //         }
-    //     });
-    // }
+    componentWillMount() {
+        this.loadData();
+    }
 
     render() {
         return (
@@ -71,8 +66,8 @@ class BlogList extends Component {
                     <Divider />
                     <PlaceHolder height="2em"/>
                     <InfiniteList load={this.loadData.bind(this)} page={this.state.page} >
-                        {   this.state.list.map((blog, key) =>
-                            <div className="art-title" onClick={(e) => { this.props.toRoute({path: "/blog/1"}) }} key={key}>
+                        {   this.state.list.map((blog) =>
+                            <div className="art-title" onClick={(e) => { this.props.toRoute({path: `/blog/${blog.id}`}) }} key={blog.id}>
                                 <Divider height="4px" width="12px" bkgColor="#3C3C3C" />
                                 <div className="topic">{blog.title}</div>
                                 <div className="text">{blog.content.slice(0, 10)}</div>

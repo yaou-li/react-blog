@@ -16,5 +16,12 @@ class Image(db.Model):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+    def get_info(self):
+        image = {
+            "id": self.id,
+            "url": self.url
+        }
+        return image
+
     def __repr__(self):
         return '<Image %r>' % self.name

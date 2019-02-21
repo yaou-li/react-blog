@@ -12,7 +12,6 @@ class InfiniteList extends Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.onScroll);
-        this.onScroll();
     }
 
     componentWillUnmount() {

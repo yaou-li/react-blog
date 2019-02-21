@@ -1,3 +1,5 @@
+import os
+
 config = {}
 
 MYSQL_USER = config.get('MYSQL_USER', 'root')
@@ -20,3 +22,7 @@ FRONT_HOST = 'http://localhost:3000'
 
 # token valid duration
 TOKEN_EXPIRATION_TIME = 60 * 60
+
+# root directory for image
+ROOT_DIR = config.get('ROOT_DIR', os.path.abspath(os.path.dirname(__file__)))
+IMG_DIR = config.get('IMG_DIR', os.path.join(ROOT_DIR,'/static/img'))

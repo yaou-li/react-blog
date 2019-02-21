@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 import showdown from 'showdown';
 import './Editor.css';
 import { EditableText, Divider } from '../../common';
-import { fetchAPI, API, DEFAULT_DURATION, storage } from '../../lib';
+import { fetchAPI, HOST, API, DEFAULT_DURATION, storage } from '../../lib';
+import { saveImage } from '../../lib/image';
 
 class Editor extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class Editor extends Component {
             content: '',
             html: ' ',
             title: this.props.match.params.blogId ? '' : 'New Blog',
+            imgMap: {},
         };
         this.converter = new showdown.Converter({
             strikethrough: true,
@@ -21,10 +23,6 @@ class Editor extends Component {
             backslashEscapesHTMLTags: true,
             ghCodeBlocks: true
         });
-    }
-
-    componentDidMount() {
-        console.log('updated');
     }
 
     componentWillMount() {
@@ -67,28 +65,48 @@ class Editor extends Component {
     }
 
     onImageAdd(e) {
-        let fr = new FileReader(),
+        let index = 0,
+            fr = new FileReader(),
+            imgMap = this.state.imgMap,
+            files = [],
             /**
              * data object is different base on event type
              * 'drop' => dataTransfer
-             *'paste' => clipboardData (extends from dataTransfer)
+             * 'paste' => clipboardData (extends from dataTransfer)
              */
-            dataList = e.type == 'paste' ? e.clipboardData.items : e.dataTransfer.items;
+            fileList = e.type == 'paste' ? e.clipboardData.files : e.dataTransfer.files,
+            items = e.type == 'paste' ? e.clipboardData.items : e.dataTransfer.items;
 
-        fr.onload = () => {
-            let content =`${this.state.content} \n ![image not found](${fr.result})`;
+        if (fileList.length > 0) {
+            // prevent default copy file text info
+            e.preventDefault();
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.match('^image/')) {
+                    files.push(items[i].getAsFile());
+                }
+            }
+            this.readImages(fr, imgMap, files, index);
+        }
+    }
+
+    readImages(fr, imgMap, items, index) {
+        if (index >= items.length) {
+            this.setState({
+                imgMap: imgMap
+            });
+            return false;
+        }
+        saveImage(items[index], (data) => {
+            let placeholder = `IMAGE-${Object.keys(imgMap).length}`;
+            imgMap[placeholder] = items[index];
+            let content = this.state.content ? `${this.state.content}  \n![${placeholder}](${HOST + data.url})` : `![${placeholder}](${HOST + data.url})`;
             this.setState({
                 content: content,
                 html: this.converter.makeHtml(content)
+            }, () => {
+                this.readImages(fr, imgMap, items, index+1);
             });
-        }
-
-        for (var i = 0; i < dataList.length; i++) {
-            if (dataList[i].type.match('^image/')) {
-                e.preventDefault();
-                fr.readAsDataURL(dataList[i].getAsFile());
-            }
-        }
+        });
     }
 
     save() {
@@ -109,7 +127,7 @@ class Editor extends Component {
             },
         });
     }
-    
+
     render() {
         return (
             <div id="editor">
