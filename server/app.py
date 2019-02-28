@@ -40,6 +40,10 @@ from models.Image import Image
 from models.Tag import Tag
 from models.ArticleTag import ArticleTag
 
+@app.teardown_appcontext
+def after_request(error):
+    db.session.close()
+
 @manager.command
 def create_db():
 	db.create_all()
