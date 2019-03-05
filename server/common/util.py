@@ -18,3 +18,16 @@ def page_format(pagination):
             'current': pagination.page,
             'count': pagination.total
         }
+
+def get_param(params, key, typ, nullable=False, default=None):
+    try:
+        val = params.get(key)
+        if val is None and nullable:
+            return default
+        elif val is None:
+            return None
+        elif val == '' and typ != str and typ != unicode:
+            return default
+        return typ(val)
+    except Exception as e:
+        raise e

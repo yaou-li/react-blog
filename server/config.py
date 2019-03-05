@@ -2,6 +2,12 @@ import os
 
 config = {}
 
+SQLALCHEMY_POOL_SIZE = int(config.get('SQLALCHEMY_POOL_SIZE', 100))
+SQLALCHEMY_MAX_OVERFLOW = int(config.get('SQLALCHEMY_MAX_OVERFLOW', 20))
+SQLALCHEMY_POOL_RECYCLE = int(config.get('SQLALCHEMY_POOL_RECYCLE', 100))  # default 7200
+# http://stackoverflow.com/questions/33738467/how-do-i-know-if-i-can-disable-sqlalchemy-track-modifications
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 MYSQL_USER = config.get('MYSQL_USER', 'root')
 MYSQL_PASS = config.get('MYSQL_PASS', 'root')
 MYSQL_HOST = config.get('MYSQL_HOST', '127.0.0.1')
